@@ -7,19 +7,20 @@ app.use(express.static(__dirname+'/public',{redirect:false}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
 var server  = email.server.connect({
-   user:     "maverics399@gmail.com", 
+   user:     "nickhil388@gmx.com", 
    password: new Buffer("Y291bnRlci1zdHJpa2U=",'base64').toString('ascii'), 
-   host:     "smtp.gmail.com", 
-   ssl:      true,
+   host:     "mail.gmx.com", 
+   ssl:      false,
+   port :587
+
 });
 
 app.post('/sendmsg', function(req, res){
 	server.send({
 	   text:    "Sender Name : "+req.body.name+"\n\nSender Email : "+req.body.email+"\n\nSubject : "+req.body.subject+"\n\nMessage : "+req.body.message, 
-	   from:    "Message <message@portfolio.com>", 
-	   to:      "Nikhil Gautam <maverics399@gmail.com>",
+	   from:    "Message <nickhil388@gmx.com>", 
+	   to:      "Nikhil Gautam <nickhil388@gmail.com>",
 	   subject: req.body.subject+" (Portfolio Message)"
 	}, function(err, message){
 		if(!err){
