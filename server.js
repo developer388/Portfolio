@@ -31,7 +31,7 @@ app.post('/sendmsg', function(req, res){
 
 	});
 });
-var port = 8080;
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 app.listen(port,function(){
 	console.log("Server Started, Port : "+port);
 });
