@@ -176,8 +176,14 @@ function sendMessage() {
                                 $('#email')[0].value="";
                                 $('#subject')[0].value="";
                                 $('#message')[0].value="";   
-                                $(".modal-body")[0].innerHTML = "<h3><b>Thanks !</h3><h4>I will get back to you very soon.</b></h4>";     
-                                $('#myModal').modal('show');
+                                if(data.success){
+                                  $(".modal-body")[0].innerHTML = "<h3><b>Thanks !</h3><h4>I will get back to you very soon.</b></h4>";     
+                                  }
+                                  else{
+                                     console.log("Server Error");
+                                     $(".modal-body")[0].innerHTML = "<h3><b>Sorry !</h3><h4>Message send failed,<br>Please try after sometime.</b></h4>";                                        
+                                  }  
+                                  $('#myModal').modal('show');
                               },
                     error   : function(e) {
                                 console.log(e);
