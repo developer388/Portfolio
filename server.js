@@ -33,5 +33,5 @@ app.post('/sendmsg', function(req, res){
 });
 var port = 8080;
 app.listen(port,function(){
-	console.log("Server Started, IP : "+ipaddress+", Port : "+port);
+	console.log("Server Started, Port : "+port);
 });
