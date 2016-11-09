@@ -32,6 +32,11 @@ app.post('/sendmsg', function(req, res){
 
 	});
 });
+
+app.get('/about', function(req, res){
+   res.json({message : 'Portfoio - Nikhil Gautam'});
+});
+
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 app.listen(port,function(){
 	console.log("Server Started, Port : "+port);
