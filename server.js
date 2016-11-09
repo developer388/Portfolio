@@ -1,4 +1,4 @@
-var http = require('http');
+//var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var email   = require("emailjs/email");
@@ -43,20 +43,20 @@ app.listen(port,function(){
 	console.log("Server Started, Port : "+port);
 });
 
-setInterval(function(){		
-	    	var options = {
-		    host : "nikhilgautam.herokuapp.com",
-		    path :'/ping'
-		};
-		var request = http.request(options, function(req) {
-			req.on('data',function(data){
-			console.log(data.toString());
-			});
-		});
+// setInterval(function(){		
+// 	    	var options = {
+// 		    host : "nikhilgautam.herokuapp.com",
+// 		    path :'/ping'
+// 		};
+// 		var request = http.request(options, function(req) {
+// 			req.on('data',function(data){
+// 			console.log(data.toString());
+// 			});
+// 		});
 		
-		request.on('error', function(err) {
-		    console.log("Network Error !");
-		});
-		request.end();
-},600000);
+// 		request.on('error', function(err) {
+// 		    console.log("Network Error !");
+// 		});
+// 		request.end();
+// },600000);
 
