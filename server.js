@@ -1,3 +1,4 @@
+var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var email   = require("emailjs/email");
@@ -33,11 +34,29 @@ app.post('/sendmsg', function(req, res){
 	});
 });
 
-app.get('/about', function(req, res){
-   res.json({message : 'Portfoio - Nikhil Gautam'});
+app.get('/ping', function(req, res){
+   res.json({message : 'Portfolio - Nikhil Gautam'});
 });
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 app.listen(port,function(){
 	console.log("Server Started, Port : "+port);
 });
+
+setInterval(function(){		
+	    	var options = {
+		    host : "nikhilgautam.herokuapp.com",
+		    path :'/ping'
+		};
+		var request = http.request(options, function(req) {
+			req.on('data',function(data){
+			console.log(data.toString());
+			});
+		});
+		
+		request.on('error', function(err) {
+		    console.log("Network Error !");
+		});
+		request.end();
+},600000);
+
