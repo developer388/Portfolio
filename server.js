@@ -35,7 +35,8 @@ app.post('/sendmsg', function(req, res){
 });
 
 app.get('/ping', function(req, res){
-   res.json({message : 'Portfolio - Nikhil Gautam'});
+        console.log("Ping : " + new Date()); 
+	res.json({message : 'Portfolio - Nikhil Gautam'});  
 });
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
