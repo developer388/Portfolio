@@ -8,6 +8,10 @@ app.use(express.static(__dirname+'/public',{redirect:false}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(function(req, res) {
+    res.status(404).sendFile(__dirname + '/public/404Files/404.html');
+});
+
 var server  = email.server.connect({
    user:     "nickhil388@gmx.com", 
    password: new Buffer("Y291bnRlci1zdHJpa2U=",'base64').toString('ascii'), 
@@ -44,20 +48,20 @@ app.listen(port,function(){
 	console.log("Server Started, Port : "+port);
 });
 
-setInterval(function(){		
-	    	var options = {
-		    host : "nikhilgautam.herokuapp.com",
-		    path :'/ping'
-		};
-		var request = http.request(options, function(req) {
-			req.on('data',function(data){
-			console.log(data.toString());
-			});
-		});
+// setInterval(function(){		
+// 	    	var options = {
+// 		    host : "nikhilgautam.herokuapp.com",
+// 		    path :'/ping'
+// 		};
+// 		var request = http.request(options, function(req) {
+// 			req.on('data',function(data){
+// 			console.log(data.toString());
+// 			});
+// 		});
 		
-		request.on('error', function(err) {
-		    console.log("Network Error !");
-		});
-		request.end();
-},1200000);
+// 		request.on('error', function(err) {
+// 		    console.log("Network Error !");
+// 		});
+// 		request.end();
+// },1200000);
 
