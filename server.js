@@ -8,10 +8,6 @@ app.use(express.static(__dirname+'/public',{redirect:false}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(function(req, res) {
-    res.status(404).sendFile(__dirname + '/public/404Files/404.html');
-});
-
 var server  = email.server.connect({
    user:     "nickhil388@gmx.com", 
    password: new Buffer("Y291bnRlci1zdHJpa2U=",'base64').toString('ascii'), 
@@ -41,6 +37,10 @@ app.post('/sendmsg', function(req, res){
 app.get('/ping', function(req, res){
         console.log("Ping : " + new Date()); 
 	res.json({message : 'Portfolio - Nikhil Gautam'});  
+});
+
+app.use(function(req, res) {
+    res.status(404).sendFile(__dirname + '/public/404Files/404.html');
 });
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
