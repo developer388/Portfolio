@@ -11,6 +11,7 @@ $(document).ready(function(){
   //Side menu - Open
   $('.side-menu-open').mouseenter(function(){
     $('.side-menu').animate({'left': '0px'}, 600, 'easeOutCubic');
+    $(this).fadeOut();
   });
 
   //Side menu - Close
@@ -18,7 +19,8 @@ $(document).ready(function(){
     var sideWidth = $('.side-menu').outerWidth();
     var sideWidthClose = '-' + sideWidth + 'px';
     $('.side-menu').animate({'left': sideWidthClose}, 600, 'easeOutCubic');
-    preventDefault();
+    $('.side-menu-open').delay(800).fadeIn();
+    //preventDefault();
   });
 
   //Smooth Scroll on anchor links

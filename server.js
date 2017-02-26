@@ -40,29 +40,12 @@ app.get('/ping', function(req, res){
 });
 
 app.use(function(req, res) {
-    res.status(404).sendFile(__dirname + '/public/404Files/404.html');
+    res.status(404).sendFile(__dirname + '/public/404Files/404.html');    
 });
 
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var port = process.env.PORT || 8080;
 app.listen(port,function(){
 	console.log("Server Started, Port : "+port);
 });
 
-// setInterval(function(){		
-// 	    	var options = {
-// 		    host : "nikhilgautam.herokuapp.com",
-// 		    path :'/ping'
-// 		};
-// 		var request = http.request(options, function(req) {
-// 			req.on('data',function(data){
-// 			console.log(data.toString());
-// 			});
-// 		});
-		
-// 		request.on('error', function(err) {
-// 		    console.log("Network Error !");
-// 		});
-// 		request.end();
-// },1200000);
 
-//nickhil388
