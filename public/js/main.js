@@ -14,7 +14,12 @@ $(document).ready(function(){
     $(this).fadeOut();
   });
   
-   $('.side-menu').delay(3000).animate({'left': '0px'}, 600, 'easeOutCubic');
+  var mq = window.matchMedia( "(min-width: 992px)" );
+  if(mq.matches)
+  { 
+    $('.side-menu-open').fadeOut();
+    $('.side-menu').delay(3000).animate({'left': '0px'}, 600, 'easeOutCubic');    
+  }
 
   //Side menu - Close
   $('#side-menu-close').click(function(){
