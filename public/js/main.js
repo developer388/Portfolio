@@ -13,6 +13,8 @@ $(document).ready(function(){
     $('.side-menu').animate({'left': '0px'}, 600, 'easeOutCubic');
     $(this).fadeOut();
   });
+  
+   $('.side-menu').delay(3000).animate({'left': '0px'}, 600, 'easeOutCubic');
 
   //Side menu - Close
   $('#side-menu-close').click(function(){
