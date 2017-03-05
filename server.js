@@ -34,6 +34,10 @@ app.post('/sendmsg', function(req, res){
 	});
 });
 
+app.get('/resume', function(req,res){
+ res.sendFile(__dirname+'/public/files/NIKHIL_GAUTAM_Resume.pdf');
+});
+
 app.get('/ping', function(req, res){
         console.log("Ping : " + new Date()); 
 	res.json({message : 'Portfolio - Nikhil Gautam'});  
