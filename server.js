@@ -1,47 +1,39 @@
 var http = require('http');
 var express = require('express');
+var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var email   = require("emailjs/email");
 var app = express();
+
+mongoose.connect(new Buffer('bW9uZ29kYjovL2FkbWluOmNvdW50ZXItc3RyaWtlQGRzMTI3OTgzLm1sYWIuY29tOjI3OTgzL3BvcnRmb2xpb25pY2toaWwzODg=','base64').toString('ascii'));
+var message = mongoose.model('messages', mongoose.Schema({name:{type:String},email:{type:String},subject:{type:String},message:{type:String},time:{type:String}}));
 
 app.use(express.static(__dirname+'/public',{redirect:false}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var server  = email.server.connect({
-   user:     "nickhil388@gmx.com", 
-   password: new Buffer("Y291bnRlci1zdHJpa2U=",'base64').toString('ascii'), 
-   host:     "mail.gmx.com", 
-   ssl:      false,
-   port :587
-
-});
-
 app.post('/sendmsg', function(req, res){
-	server.send({
-	   text:    "Sender Name : "+req.body.name+"\n\nSender Email : "+req.body.email+"\n\nSubject : "+req.body.subject+"\n\nMessage : "+req.body.message, 
-	   from:    "Message <nickhil388@gmx.com>", 
-	   to:      "Nikhil Gautam <nickhil388@gmail.com>",
-	   subject: req.body.subject+" (Portfolio Message)"
-	}, function(err, message){
-		if(!err){
-		  res.json({success:true}); 
-		}
-		else{
-		  res.json({success:false, error:err});
-		}
-
-	});
+	var msg = new message({'name':req.body.name,'email':req.body.email,'subject':req.body.subject,'message': req.body.message,'time':getTimeString()});
+	msg.save(function(err){
+		if(err)
+			res.json({success:false,error:err});
+		else
+			res.json({success:true});
+	})
 });
+
+app.get('/messages',function(req,res){
+	message.find({},{'_id':0,'password':0,'__v':0}, function(err,result){			
+	    if(err)
+	    	res.json({success:false,error:err})
+	    else
+	    	res.json({success:true,data:result});
+	});
+})
 
 app.get('/resume', function(req,res){
  res.sendFile(__dirname+'/public/files/NIKHIL_GAUTAM_Resume.pdf');
 });
 
-app.get('/ping', function(req, res){
-        console.log("Ping : " + new Date()); 
-	res.json({message : 'Portfolio - Nikhil Gautam'});  
-});
 
 app.use(function(req, res) {
     res.status(404).sendFile(__dirname + '/public/404Files/404.html');    
@@ -53,3 +45,13 @@ app.listen(port,function(){
 });
 
 
+function getTimeString() {
+	var date = new Date();
+	var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+	var am_pm = date.getHours() >= 12 ? "PM" : "AM";
+	hours = hours < 10 ? "0" + hours : hours;
+	var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+	var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+	time = hours + ":" + minutes + ":" + seconds + " " + am_pm;
+	return time+", "+date.toLocaleDateString();
+ };
