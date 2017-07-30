@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/sendmsg', function(req, res){
-	var msg = new message({'name':req.body.name,'email':req.body.email,'subject':req.body.subject,'message': req.body.message,'time':moment().format('DD/MM/YYYY, hh:mm:ss A')});
+	var msg = new message({'name':req.body.name,'email':req.body.email,'subject':req.body.subject,'message': req.body.message,'time':moment().tz('Asia/Kolkata').format('DD/MM/YYYY, hh:mm:ss A')});
 	msg.save(function(err){
 		if(err)
 			res.json({success:false,error:err});
