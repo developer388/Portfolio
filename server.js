@@ -2,6 +2,8 @@ var http = require('http');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var moment = require('moment-timezone');
+
 var app = express();
 
 mongoose.connect(new Buffer('bW9uZ29kYjovL2FkbWluOmNvdW50ZXItc3RyaWtlQGRzMTI3OTgzLm1sYWIuY29tOjI3OTgzL3BvcnRmb2xpb25pY2toaWwzODg=','base64').toString('ascii'));
@@ -12,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/sendmsg', function(req, res){
-	var msg = new message({'name':req.body.name,'email':req.body.email,'subject':req.body.subject,'message': req.body.message,'time':getTimeString()});
+	var msg = new message({'name':req.body.name,'email':req.body.email,'subject':req.body.subject,'message': req.body.message,'time':moment().format('DD/MM/YYYY, hh:mm:ss A')});
 	msg.save(function(err){
 		if(err)
 			res.json({success:false,error:err});
@@ -43,15 +45,3 @@ var port = process.env.PORT || 8080;
 app.listen(port,function(){
 	console.log("Server Started, Port : "+port);
 });
-
-
-function getTimeString() {
-	var date = new Date();
-	var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-	var am_pm = date.getHours() >= 12 ? "PM" : "AM";
-	hours = hours < 10 ? "0" + hours : hours;
-	var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-	var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-	time = hours + ":" + minutes + ":" + seconds + " " + am_pm;
-	return time+", "+date.toLocaleDateString();
- };
