@@ -24,7 +24,7 @@ app.post('/sendmsg', function(req, res){
 });
 
 app.get('/messages',function(req,res){
-	message.find({},{'_id':0,'password':0,'__v':0}, function(err,result){			
+	message.find({},{'_id':0,'__v':0}, function(err,result){			
 	    if(err)
 	    	res.json({success:false,error:err})
 	    else

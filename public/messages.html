@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Messages</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script
+  src="http://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+</head>
+<body>
+<div class="container" ng-app="app">
+<div class="row" >
+<h2>Messages</h2>
+</div>
+<div class="row" ng-controller="mainController">
+    <div class="col-md-12">
+    <div class="testiminial-block" ng-repeat="msg in messages">
+      <div class="row">
+        
+        <div class="col-md-8 col-sm-8 testimonial-content">
+          <hr>
+          <h3>{{$index+1}}) {{msg.subject}}</h3>
+          <p>{{msg.message}}</p>
+          <div class="testimonial-author">
+            <b>{{msg.name}}</b>, <span>({{msg.email}})</span>,  {{msg.time}}
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  
+ 
+  </div>    
+</div>
+</div>
+
+<script type="text/javascript">
+  var app = angular.module('app',[]);
+  app.controller('mainController',function($scope,$http) {
+        $scope.messages = [];
+        $http({
+            'method' : 'GET',
+            'url'    : '/messages'
+        }).then(function(response){
+            $scope.messages = response.data.data;
+        }, function(error){
+            alert("SERVER ERROR !");
+            console.log(error);
+        })
+  })
+
+</script>
+</body>
+</html>
