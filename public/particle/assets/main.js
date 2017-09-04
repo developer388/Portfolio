@@ -121,6 +121,27 @@
 	    density: 9000,
 	    proximity: 100
 	});  	
- 
+
+ 	$('#feedback-btn').on('click',function(){ 
+ 	 	var data = {'feedback': $('#feedback-txt')[0].value };
+ 	 	if(data.feedback!= ""){
+ 	 		  $.ajax({
+                    url     : '/feedback',
+                    type    : 'POST',
+                    data    : data,
+                    success : function(response) {
+                                $('#feedback-txt')[0].value = "";                         
+                                $('#feedback-form').hide();
+                                $('#feedback-title1').hide();
+                                $('#feedback-title2').fadeIn(2000);                                 
+                              },
+                    error   : function(e) {
+                    			alert("Failed, Please try after sometime.")
+                                console.log(e);                          
+                              }
+                }); 	
+ 	 	}
+ 	 });
+
 
 })(jQuery);
